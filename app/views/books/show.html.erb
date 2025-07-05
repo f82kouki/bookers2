@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'list' %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <p id="notice"></p>
+      <h2>Book detail</h2>
+      <table class="table table-hover align-middle">
+        <tbody>
+          <tr>
+            <td>
+          <%= link_to user_path(@book.user) do %>
+            <% if @book.user.profile_image.attached? %>
+              <%= image_tag @book.user.profile_image.variant(resize_to_limit: [80, 80]) %>
+            <% else %>
+              <%= image_tag 'no-image.jpg', size: '80x80' %>
+            <% end %>
+            <%= @book.user.name %>
+          <% end %>
+         </td>
+         <td><%= link_to @book.title, book_path(@book.id) %></td>
+         <td><%= @book.body %></td>
+         <% if @book.user == current_user %>
+         <td>
+           <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-sm btn-success' %>
+         </td>
+         <td>
+           <%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+         </td>
+         <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="mx-auto">
+        <p>CopyRight Infratop.inc</p>
+      </div>
+    </div>
+  </div>
+</footer>

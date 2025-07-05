@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'list' %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <p id="notice"></p>
+      <h2>Books</h2>
+      <div class="table-responsive">
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Body</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+      <tbody>
+        <% @books.each do |book| %>
+          <tr>
+           <td>
+            <%= link_to user_path(book.user) do %>
+              <% if book.user.profile_image.attached? %>
+                <%= image_tag book.user.get_profile_image(50,50) %>
+              <% else %>
+                <%= image_tag 'no-image', size: "50x50" %>
+              <% end %>
+            <% end %>
+           </td>
+            <td><%= link_to book.title, book_path(book) %></td>
+            <td><%= book.body %></td>
+          </tr>
+        <% end %>
+      </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="mx-auto">
+        <p>CopyRight Infratop.inc</p>
+      </div>
+    </div>
+  </div>
+</footer>

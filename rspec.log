@@ -1,0 +1,765 @@
+
+UsersController
+  GET #edit
+    ログインユーザーの場合
+[32m      レスポンスが成功すること[0m
+[32m      @userが正しく設定されていること[0m
+
+Bookモデルのテスト
+  バリデーションのテスト
+    titleカラム
+[32m      空欄でないこと[0m
+    opinionカラム
+[32m      空欄でないこと[0m
+[32m      200文字以下であること: 200文字は〇[0m
+[32m      200文字以下であること: 201文字は×[0m
+  アソシエーションのテスト
+    Userモデルとの関係
+[32m      N:1となっている[0m
+
+Userモデルのテスト
+  バリデーションのテスト
+    nameカラム
+[32m      空欄でないこと[0m
+[32m      2文字以上であること: 1文字は×[0m
+[32m      2文字以上であること: 2文字は〇[0m
+[32m      20文字以下であること: 20文字は〇[0m
+[32m      20文字以下であること: 21文字は×[0m
+[32m      一意性があること[0m
+    introductionカラム
+[32m      50文字以下であること: 50文字は〇[0m
+[32m      50文字以下であること: 51文字は×[0m
+  アソシエーションのテスト
+    Bookモデルとの関係
+[32m      1:Nとなっている[0m
+
+[STEP1] ユーザログイン前のテスト
+  トップ画面のテスト
+    表示内容の確認
+[32m      URLが正しい[0m
+[32m      Log inリンクが表示される: 青色のボタンの表示が「Log in」である[0m
+[32m      Log inリンクの内容が正しい[0m
+[32m      Sign upリンクが表示される: 緑色のボタンの表示が「Sign up」である[0m
+[32m      Sign upリンクの内容が正しい[0m
+  アバウト画面のテスト
+    表示内容の確認
+[32m      URLが正しい[0m
+  ヘッダーのテスト: ログインしていない場合
+    表示内容の確認
+[32m      Bookersリンクが表示される: 左上から1番目のリンクが「Bookers」である[0m
+[32m      Homeリンクが表示される: 左上から2番目のリンクが「Home」である[0m
+[32m      Aboutリンクが表示される: 左上から3番目のリンクが「About」である[0m
+[32m      Sign upリンクが表示される: 左上から4番目のリンクが「Sign up」である[0m
+[32m      Log inリンクが表示される: 左上から5番目のリンクが「Log in」である[0m
+    リンクの内容を確認
+[32m      Bookersを押すと、トップ画面に遷移する[0m
+[32m      Homeを押すと、トップ画面に遷移する[0m
+[32m      Aboutを押すと、アバウト画面に遷移する[0m
+[32m      Sign upを押すと、新規登録画面に遷移する[0m
+[32m      Log inを押すと、ログイン画面に遷移する[0m
+  ユーザ新規登録のテスト
+    表示内容の確認
+[32m      URLが正しい[0m
+[32m      「Sign up」と表示される[0m
+[32m      nameフォームが表示される[0m
+[32m      emailフォームが表示される[0m
+[32m      passwordフォームが表示される[0m
+[32m      password_confirmationフォームが表示される[0m
+[32m      Sign upボタンが表示される[0m
+    新規登録成功のテスト
+[32m      正しく新規登録される[0m
+[32m      新規登録後のリダイレクト先が、新規登録できたユーザの詳細画面になっている[0m
+  ユーザログイン
+    表示内容の確認
+[32m      URLが正しい[0m
+[32m      「Log in」と表示される[0m
+[32m      nameフォームが表示される[0m
+[32m      passwordフォームが表示される[0m
+[32m      Log inボタンが表示される[0m
+[32m      emailフォームは表示されない[0m
+    ログイン成功のテスト
+[32m      ログイン後のリダイレクト先が、ログインしたユーザの詳細画面になっている[0m
+    ログイン失敗のテスト
+[32m      ログインに失敗し、ログイン画面にリダイレクトされる[0m
+  ヘッダーのテスト: ログインしている場合
+    ヘッダーの表示を確認
+[32m      Bookersリンクが表示される: 左上から1番目のリンクが「Bookers」である[0m
+[32m      Homeリンクが表示される: 左上から2番目のリンクが「Home」である[0m
+[32m      Usersリンクが表示される: 左上から3番目のリンクが「Users」である[0m
+[32m      Booksリンクが表示される: 左上から4番目のリンクが「Books」である[0m
+[32m      Log outリンクが表示される: 左上から5番目のリンクが「Log out」である[0m
+  ユーザログアウトのテスト
+    ログアウト機能のテスト
+[32m      正しくログアウトできている: ログアウト後のリダイレクト先においてAbout画面へのリンクが存在する[0m
+[32m      ログアウト後のリダイレクト先が、トップになっている[0m
+
+[STEP2] ユーザログイン後のテスト
+  ヘッダーのテスト: ログインしている場合
+    リンクの内容を確認: ※logoutは『ユーザログアウトのテスト』でテスト済みになります。
+[32m      Homeを押すと、自分のユーザ詳細画面に遷移する[0m
+[32m      Usersを押すと、ユーザ一覧画面に遷移する[0m
+[32m      Booksを押すと、投稿一覧画面に遷移する[0m
+  投稿一覧画面のテスト
+    表示内容の確認
+[32m      URLが正しい[0m
+[31m      自分と他人の画像のリンク先が正しい (FAILED - 1)[0m
+[32m      自分の投稿と他人の投稿のタイトルのリンク先がそれぞれ正しい[0m
+[32m      自分の投稿と他人の投稿のオピニオンが表示される[0m
+    サイドバーの確認
+[32m      自分の名前と紹介文が表示される[0m
+[32m      自分のユーザ編集画面へのリンクが存在する[0m
+[32m      「New book」と表示される[0m
+[32m      titleフォームが表示される[0m
+[32m      titleフォームに値が入っていない[0m
+[31m      bodyフォームが表示される (FAILED - 2)[0m
+[31m      bodyフォームに値が入っていない (FAILED - 3)[0m
+[32m      Create Bookボタンが表示される[0m
+    投稿成功のテスト
+[31m      自分の新しい投稿が正しく保存される (FAILED - 4)[0m
+[31m      リダイレクト先が、保存できた投稿の詳細画面になっている (FAILED - 5)[0m
+  自分の投稿詳細画面のテスト
+    表示内容の確認
+[32m      URLが正しい[0m
+[32m      「Book detail」と表示される[0m
+[32m      ユーザ画像・名前のリンク先が正しい[0m
+[32m      投稿のtitleが表示される[0m
+[31m      投稿のbodyが表示される (FAILED - 6)[0m
+[32m      投稿の編集リンクが表示される[0m
+[32m      投稿の削除リンクが表示される[0m
+    サイドバーの確認
+[32m      自分の名前と紹介文が表示される[0m
+[32m      自分のユーザ編集画面へのリンクが存在する[0m
+[32m      「New book」と表示される[0m
+[32m      titleフォームが表示される[0m
+[32m      titleフォームに値が入っていない[0m
+[31m      bodyフォームが表示される (FAILED - 7)[0m
+[31m      bodyフォームに値が入っていない (FAILED - 8)[0m
+[32m      Create Bookボタンが表示される[0m
+    投稿成功のテスト
+[31m      自分の新しい投稿が正しく保存される (FAILED - 9)[0m
+    編集リンクのテスト
+[31m      編集画面に遷移する (FAILED - 10)[0m
+    削除リンクのテスト
+[32m      application.html.erbにjavascript_pack_tagを含んでいる[0m
+[32m      正しく削除される[0m
+[32m      リダイレクト先が、投稿一覧画面になっている[0m
+  自分の投稿編集画面のテスト
+    表示の確認
+[31m      URLが正しい (FAILED - 11)[0m
+[31m      「Editing Book」と表示される (FAILED - 12)[0m
+[31m      title編集フォームが表示される (FAILED - 13)[0m
+[31m      body編集フォームが表示される (FAILED - 14)[0m
+[31m      Update Bookボタンが表示される (FAILED - 15)[0m
+[31m      Showリンクが表示される (FAILED - 16)[0m
+[31m      Backリンクが表示される (FAILED - 17)[0m
+    編集成功のテスト
+[31m      titleが正しく更新される (FAILED - 18)[0m
+[31m      bodyが正しく更新される (FAILED - 19)[0m
+[31m      リダイレクト先が、更新した投稿の詳細画面になっている (FAILED - 20)[0m
+  ユーザ一覧画面のテスト
+    表示内容の確認
+[32m      URLが正しい[0m
+[32m      自分と他人の画像が表示される: fallbackの画像がサイドバーの1つ＋一覧(2人)の2つの計3つ存在する[0m
+[32m      自分と他人の名前がそれぞれ表示される[0m
+[32m      自分と他人のshowリンクがそれぞれ表示される[0m
+    サイドバーの確認
+[32m      自分の名前と紹介文が表示される[0m
+[32m      自分のユーザ編集画面へのリンクが存在する[0m
+[32m      「New book」と表示される[0m
+[31m      titleフォームが表示される (FAILED - 21)[0m
+[31m      titleフォームに値が入っていない (FAILED - 22)[0m
+[31m      bodyフォームが表示される (FAILED - 23)[0m
+[31m      bodyフォームに値が入っていない (FAILED - 24)[0m
+[32m      Create Bookボタンが表示される[0m
+  自分のユーザ詳細画面のテスト
+    表示の確認
+[32m      URLが正しい[0m
+[32m      投稿一覧のユーザ画像のリンク先が正しい[0m
+[32m      投稿一覧に自分の投稿のtitleが表示され、リンクが正しい[0m
+[31m      投稿一覧に自分の投稿のbodyが表示される (FAILED - 25)[0m
+[31m      他人の投稿は表示されない (FAILED - 26)[0m
+    サイドバーの確認
+[32m      自分の名前と紹介文が表示される[0m
+[32m      自分のユーザ編集画面へのリンクが存在する[0m
+[32m      「New book」と表示される[0m
+[31m      titleフォームが表示される (FAILED - 27)[0m
+[31m      titleフォームに値が入っていない (FAILED - 28)[0m
+[31m      bodyフォームが表示される (FAILED - 29)[0m
+[31m      bodyフォームに値が入っていない (FAILED - 30)[0m
+[32m      Create Bookボタンが表示される[0m
+  自分のユーザ情報編集画面のテスト
+    表示の確認
+[32m      URLが正しい[0m
+[32m      名前編集フォームに自分の名前が表示される[0m
+[32m      画像編集フォームが表示される[0m
+[32m      自己紹介編集フォームに自分の自己紹介文が表示される[0m
+[32m      Update Userボタンが表示される[0m
+    更新成功のテスト
+[32m      nameが正しく更新される[0m
+[32m      introductionが正しく更新される[0m
+[32m      リダイレクト先が、自分のユーザ詳細画面になっている[0m
+
+[STEP3] 仕上げのテスト
+  サクセスメッセージのテスト
+[32m    ユーザ新規登録成功時[0m
+[32m    ユーザログイン成功時[0m
+[32m    ユーザログアウト成功時[0m
+[32m    ユーザのプロフィール情報更新成功時[0m
+[31m    投稿データの新規投稿成功時: 投稿一覧画面から行います。 (FAILED - 31)[0m
+[31m    投稿データの更新成功時 (FAILED - 32)[0m
+  処理失敗時のテスト
+    ユーザ新規登録失敗: nameを1文字にする
+[32m      新規登録されない[0m
+[32m      新規登録画面を表示しており、フォームの内容が正しい[0m
+[32m      バリデーションエラーが表示される[0m
+    ユーザのプロフィール情報編集失敗: nameを1文字にする
+[32m      更新されない[0m
+[32m      ユーザ編集画面を表示しており、フォームの内容が正しい[0m
+[32m      バリデーションエラーが表示される[0m
+    投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする
+[31m      投稿が保存されない (FAILED - 33)[0m
+[31m      投稿一覧画面を表示している (FAILED - 34)[0m
+[31m      新規投稿フォームの内容が正しい (FAILED - 35)[0m
+[31m      バリデーションエラーが表示される (FAILED - 36)[0m
+    投稿データの更新失敗: titleを空にする
+[31m      投稿が更新されない (FAILED - 37)[0m
+[31m      投稿編集画面を表示しており、フォームの内容が正しい (FAILED - 38)[0m
+[31m      エラーメッセージが表示される (FAILED - 39)[0m
+  ログインしていない場合のアクセス制限のテスト: アクセスできず、ログイン画面に遷移する
+[32m    ユーザ一覧画面[0m
+[32m    ユーザ詳細画面[0m
+[32m    ユーザ情報編集画面[0m
+[32m    投稿一覧画面[0m
+[32m    投稿詳細画面[0m
+[32m    投稿編集画面[0m
+  他人の画面のテスト
+    他人の投稿詳細画面のテスト
+      表示内容の確認
+[32m        URLが正しい[0m
+[32m        「Book detail」と表示される[0m
+[32m        ユーザ画像・名前のリンク先が正しい[0m
+[32m        投稿のtitleが表示される[0m
+[31m        投稿のopinionが表示される (FAILED - 40)[0m
+[32m        投稿の編集リンクが表示されない[0m
+[32m        投稿の削除リンクが表示されない[0m
+      サイドバーの確認
+[32m        他人の名前と紹介文が表示される[0m
+[31m        他人のユーザ編集画面へのリンクが存在する (FAILED - 41)[0m
+[32m        自分の名前と紹介文は表示されない[0m
+[32m        自分のユーザ編集画面へのリンクは存在しない[0m
+    他人の投稿編集画面
+[32m      遷移できず、投稿一覧画面にリダイレクトされる[0m
+    他人のユーザ詳細画面のテスト
+      表示の確認
+[32m        URLが正しい[0m
+[31m        投稿一覧のユーザ画像のリンク先が正しい (FAILED - 42)[0m
+[32m        投稿一覧に他人の投稿のtitleが表示され、リンクが正しい[0m
+[31m        投稿一覧に他人の投稿のopinionが表示される (FAILED - 43)[0m
+[31m        自分の投稿は表示されない (FAILED - 44)[0m
+      サイドバーの確認
+[32m        他人の名前と紹介文が表示される[0m
+[31m        他人のユーザ編集画面へのリンクが存在する (FAILED - 45)[0m
+[32m        自分の名前と紹介文は表示されない[0m
+[32m        自分のユーザ編集画面へのリンクは存在しない[0m
+    他人のユーザ情報編集画面
+[32m      遷移できず、自分のユーザ詳細画面にリダイレクトされる[0m
+  グリッドシステムのテスト: container, row, col-md-〇を正しく使えている
+[32m    ユーザ一覧画面[0m
+[32m    ユーザ詳細画面[0m
+[32m    投稿一覧画面[0m
+[32m    投稿詳細画面[0m
+  アイコンのテスト
+    トップ画面
+[32m      本のアイコンが表示される[0m
+    アバウト画面
+[31m      本のアイコンが表示される (FAILED - 46)[0m
+    ヘッダー: ログインしていない場合
+[32m      Homeリンクのアイコンが表示される[0m
+[32m      Aboutリンクのアイコンが表示される[0m
+[32m      Sign upリンクのアイコンが表示される[0m
+[32m      Log inリンクのアイコンが表示される[0m
+    ヘッダー: ログインしている場合
+[32m      Homeリンクのアイコンが表示される[0m
+[32m      Usersリンクのアイコンが表示される[0m
+[32m      Booksリンクのアイコンが表示される[0m
+[32m      Log outリンクのアイコンが表示される[0m
+    サイドバー
+[32m      ユーザ一覧画面でレンチアイコンが表示される[0m
+[32m      ユーザ詳細画面でレンチアイコンが表示される[0m
+[32m      投稿一覧画面でレンチアイコンが表示される[0m
+[32m      投稿詳細画面でレンチアイコンが表示される[0m
+
+Failures:
+
+  1) [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 表示内容の確認 自分と他人の画像のリンク先が正しい
+     [31mFailure/Error: [0m[32mexpect[0m(page).to have_link [31m[1;31m'[0m[31m[1;31m'[0m[31m[0m, [35mhref[0m: user_path(other_book.user)[0m
+     [31m  expected to find link "" with href "/users/2" but there were no matches[0m
+     [36m# ./spec/system/02_after_login_spec.rb:52:in `block (4 levels) in <main>'[0m
+
+  2) [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト サイドバーの確認 bodyフォームが表示される
+     [31mFailure/Error: [0m[32mexpect[0m(page).to have_field [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m[0m
+     [31m  expected to find field "book[body]" that is not disabled but there were no matches[0m
+     [36m# ./spec/system/02_after_login_spec.rb:82:in `block (4 levels) in <main>'[0m
+
+  3) [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト サイドバーの確認 bodyフォームに値が入っていない
+     [31mFailure/Error: [0m[32mexpect[0m(find_field([31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m).text).to be_blank[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find field "book[body]" that is not disabled[0m
+     [36m# ./spec/system/02_after_login_spec.rb:85:in `block (4 levels) in <main>'[0m
+
+  4) [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される
+     [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: [1;34;4mFaker[0m::[1;34;4mLorem[0m.characters([35mnumber[0m: [1;34m20[0m)[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find field "book[body]" that is not disabled[0m
+     [36m# ./spec/system/02_after_login_spec.rb:95:in `block (4 levels) in <main>'[0m
+
+  5) [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 投稿成功のテスト リダイレクト先が、保存できた投稿の詳細画面になっている
+     [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: [1;34;4mFaker[0m::[1;34;4mLorem[0m.characters([35mnumber[0m: [1;34m20[0m)[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find field "book[body]" that is not disabled[0m
+     [36m# ./spec/system/02_after_login_spec.rb:95:in `block (4 levels) in <main>'[0m
+
+  6) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 表示内容の確認 投稿のbodyが表示される
+     [31mFailure/Error: [0m[32mexpect[0m(page).to have_content book.body[0m
+     [31m[0m
+     [31mNoMethodError:[0m
+     [31m  undefined method `body' for #<Book id: 1, created_at: "2025-07-04 01:08:25.736886000 +0000", updated_at: "2025-07-04 01:08:25.736886000 +0000", title: "6pwea", opinion: "2j6gezlczpulqkkt61eb", user_id: 1>[0m
+     [36m# ./spec/system/02_after_login_spec.rb:127:in `block (4 levels) in <main>'[0m
+
+  7) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームが表示される
+     [31mFailure/Error: [0m[32mexpect[0m(page).to have_field [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m[0m
+     [31m  expected to find field "book[body]" that is not disabled but there were no matches[0m
+     [36m# ./spec/system/02_after_login_spec.rb:155:in `block (4 levels) in <main>'[0m
+
+  8) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない
+     [31mFailure/Error: [0m[32mexpect[0m(find_field([31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m).text).to be_blank[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find field "book[body]" that is not disabled[0m
+     [36m# ./spec/system/02_after_login_spec.rb:158:in `block (4 levels) in <main>'[0m
+
+  9) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される
+     [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: [1;34;4mFaker[0m::[1;34;4mLorem[0m.characters([35mnumber[0m: [1;34m20[0m)[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find field "book[body]" that is not disabled[0m
+     [36m# ./spec/system/02_after_login_spec.rb:168:in `block (4 levels) in <main>'[0m
+
+  10) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 編集リンクのテスト 編集画面に遷移する
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:183:in `block (4 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  11) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 URLが正しい
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  12) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 「Editing Book」と表示される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  13) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 title編集フォームが表示される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  14) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 body編集フォームが表示される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  15) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 Update Bookボタンが表示される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  16) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 Showリンクが表示される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  17) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 Backリンクが表示される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  18) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト titleが正しく更新される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  19) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト bodyが正しく更新される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  20) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト リダイレクト先が、更新した投稿の詳細画面になっている
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/02_after_login_spec.rb:214:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  21) [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 titleフォームが表示される
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_field [31m[1;31m'[0m[31mbook[title][1;31m'[0m[31m[0m[0m
+      [31m  expected to find field "book[title]" that is not disabled but there were no matches[0m
+      [36m# ./spec/system/02_after_login_spec.rb:297:in `block (4 levels) in <main>'[0m
+
+  22) [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 titleフォームに値が入っていない
+      [31mFailure/Error: [0m[32mexpect[0m(find_field([31m[1;31m'[0m[31mbook[title][1;31m'[0m[31m[0m).text).to be_blank[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[title]" that is not disabled[0m
+      [36m# ./spec/system/02_after_login_spec.rb:300:in `block (4 levels) in <main>'[0m
+
+  23) [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 bodyフォームが表示される
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_field [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m[0m
+      [31m  expected to find field "book[body]" that is not disabled but there were no matches[0m
+      [36m# ./spec/system/02_after_login_spec.rb:303:in `block (4 levels) in <main>'[0m
+
+  24) [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 bodyフォームに値が入っていない
+      [31mFailure/Error: [0m[32mexpect[0m(find_field([31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m).text).to be_blank[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[body]" that is not disabled[0m
+      [36m# ./spec/system/02_after_login_spec.rb:306:in `block (4 levels) in <main>'[0m
+
+  25) [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト 表示の確認 投稿一覧に自分の投稿のbodyが表示される
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_content book.body[0m
+      [31m[0m
+      [31mNoMethodError:[0m
+      [31m  undefined method `body' for #<Book id: 1, created_at: "2025-07-04 01:08:35.423956000 +0000", updated_at: "2025-07-04 01:08:35.423956000 +0000", title: "33bpv", opinion: "7qc5kuw0nd0lvz1wobo4", user_id: 1>[0m
+      [36m# ./spec/system/02_after_login_spec.rb:330:in `block (4 levels) in <main>'[0m
+
+  26) [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト 表示の確認 他人の投稿は表示されない
+      [31mFailure/Error: [0m[32mexpect[0m(page).not_to have_content other_book.body[0m
+      [31m[0m
+      [31mNoMethodError:[0m
+      [31m  undefined method `body' for #<Book id: 2, created_at: "2025-07-04 01:08:35.642791000 +0000", updated_at: "2025-07-04 01:08:35.642791000 +0000", title: "9qe64", opinion: "gfbjk0cygvftrik2cow1", user_id: 2>[0m
+      [36m# ./spec/system/02_after_login_spec.rb:335:in `block (4 levels) in <main>'[0m
+
+  27) [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 titleフォームが表示される
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_field [31m[1;31m'[0m[31mbook[title][1;31m'[0m[31m[0m[0m
+      [31m  expected to find field "book[title]" that is not disabled but there were no matches[0m
+      [36m# ./spec/system/02_after_login_spec.rb:351:in `block (4 levels) in <main>'[0m
+
+  28) [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 titleフォームに値が入っていない
+      [31mFailure/Error: [0m[32mexpect[0m(find_field([31m[1;31m'[0m[31mbook[title][1;31m'[0m[31m[0m).text).to be_blank[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[title]" that is not disabled[0m
+      [36m# ./spec/system/02_after_login_spec.rb:354:in `block (4 levels) in <main>'[0m
+
+  29) [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 bodyフォームが表示される
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_field [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m[0m
+      [31m  expected to find field "book[body]" that is not disabled but there were no matches[0m
+      [36m# ./spec/system/02_after_login_spec.rb:357:in `block (4 levels) in <main>'[0m
+
+  30) [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない
+      [31mFailure/Error: [0m[32mexpect[0m(find_field([31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m).text).to be_blank[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[body]" that is not disabled[0m
+      [36m# ./spec/system/02_after_login_spec.rb:360:in `block (4 levels) in <main>'[0m
+
+  31) [STEP3] 仕上げのテスト サクセスメッセージのテスト 投稿データの新規投稿成功時: 投稿一覧画面から行います。
+      [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: [1;34;4mFaker[0m::[1;34;4mLorem[0m.characters([35mnumber[0m: [1;34m20[0m)[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[body]" that is not disabled[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:54:in `block (3 levels) in <main>'[0m
+
+  32) [STEP3] 仕上げのテスト サクセスメッセージのテスト 投稿データの更新成功時
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:63:in `block (3 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  33) [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする 投稿が保存されない
+      [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: @body[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[body]" that is not disabled[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:128:in `block (4 levels) in <main>'[0m
+
+  34) [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする 投稿一覧画面を表示している
+      [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: @body[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[body]" that is not disabled[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:128:in `block (4 levels) in <main>'[0m
+
+  35) [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする 新規投稿フォームの内容が正しい
+      [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: @body[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[body]" that is not disabled[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:128:in `block (4 levels) in <main>'[0m
+
+  36) [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする バリデーションエラーが表示される
+      [31mFailure/Error: [0mfill_in [31m[1;31m'[0m[31mbook[body][1;31m'[0m[31m[0m, [35mwith[0m: @body[0m
+      [31m[0m
+      [31mCapybara::ElementNotFound:[0m
+      [31m  Unable to find field "book[body]" that is not disabled[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:128:in `block (4 levels) in <main>'[0m
+
+  37) [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの更新失敗: titleを空にする 投稿が更新されない
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:156:in `block (4 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  38) [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの更新失敗: titleを空にする 投稿編集画面を表示しており、フォームの内容が正しい
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:156:in `block (4 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  39) [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの更新失敗: titleを空にする エラーメッセージが表示される
+      [31mFailure/Error: [0m<[31m[1;31m% [0m[31mif[1;31m [0m[31m[0m@user.profile_image.attached? [31m[1;31m%>[0m[31m[0m[0m
+      [31m[0m
+      [31mActionView::Template::Error:[0m
+      [31m  undefined method `profile_image' for nil:NilClass[0m
+      [36m# ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+      [36m# ./app/views/books/edit.html.erb:4:in `_app_views_books_edit_html_erb___2114444872582518462_41780'[0m
+      [36m# ./app/controllers/books_controller.rb:35:in `edit'[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:156:in `block (4 levels) in <main>'[0m
+      [36m# ------------------[0m
+      [36m# --- Caused by: ---[0m
+      [36m# NoMethodError:[0m
+      [36m#   undefined method `profile_image' for nil:NilClass[0m
+      [36m#   ./app/views/books/_list.html.erb:11:in `_app_views_books__list_html_erb__4239355856440073650_28100'[0m
+
+  40) [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿詳細画面のテスト 表示内容の確認 投稿のopinionが表示される
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_content other_book.body[0m
+      [31m[0m
+      [31mNoMethodError:[0m
+      [31m  undefined method `body' for #<Book id: 2, created_at: "2025-07-04 01:08:44.891393000 +0000", updated_at: "2025-07-04 01:08:44.891393000 +0000", title: "zcvkv", opinion: "xae5hoph1fa54nwzd57i", user_id: 2>[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:232:in `block (5 levels) in <main>'[0m
+
+  41) [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿詳細画面のテスト サイドバーの確認 他人のユーザ編集画面へのリンクが存在する
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_link [31m[1;31m'[0m[31m[1;31m'[0m[31m[0m, [35mhref[0m: edit_user_path(other_user)[0m
+      [31m  expected to find link "" with href "/users/2/edit" but there were no matches[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:248:in `block (5 levels) in <main>'[0m
+
+  42) [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 投稿一覧のユーザ画像のリンク先が正しい
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_link [31m[1;31m'[0m[31m[1;31m'[0m[31m[0m, [35mhref[0m: user_path(other_user)[0m
+      [31m  expected to find link "" with href "/users/2" but there were no matches[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:283:in `block (5 levels) in <main>'[0m
+
+  43) [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 投稿一覧に他人の投稿のopinionが表示される
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_content other_book.body[0m
+      [31m[0m
+      [31mNoMethodError:[0m
+      [31m  undefined method `body' for #<Book id: 2, created_at: "2025-07-04 01:08:47.922254000 +0000", updated_at: "2025-07-04 01:08:47.922254000 +0000", title: "a7dhk", opinion: "wcqh5zq2bqtsi8j000ru", user_id: 2>[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:289:in `block (5 levels) in <main>'[0m
+
+  44) [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 自分の投稿は表示されない
+      [31mFailure/Error: [0m[32mexpect[0m(page).not_to have_content book.body[0m
+      [31m[0m
+      [31mNoMethodError:[0m
+      [31m  undefined method `body' for #<Book id: 1, created_at: "2025-07-04 01:08:48.189810000 +0000", updated_at: "2025-07-04 01:08:48.189810000 +0000", title: "jr75b", opinion: "jn4evu6wjakz5piqrkbr", user_id: 1>[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:293:in `block (5 levels) in <main>'[0m
+
+  45) [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト サイドバーの確認 他人のユーザ編集画面へのリンクが存在する
+      [31mFailure/Error: [0m[32mexpect[0m(page).to have_link [31m[1;31m'[0m[31m[1;31m'[0m[31m[0m, [35mhref[0m: edit_user_path(other_user)[0m
+      [31m  expected to find link "" with href "/users/2/edit" but there were no matches[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:303:in `block (5 levels) in <main>'[0m
+
+  46) [STEP3] 仕上げのテスト アイコンのテスト アバウト画面 本のアイコンが表示される
+      [31mFailure/Error: [0mis_expected.to have_selector [31m[1;31m'[0m[31m.fa-solid.fa-book, .fas.fa-book[1;31m'[0m[31m[0m[0m
+      [31m  expected to find css ".fa-solid.fa-book, .fas.fa-book" but there were no matches[0m
+      [36m# ./spec/system/03_finishing_touches_spec.rb:376:in `block (4 levels) in <main>'[0m
+
+Finished in 35.84 seconds (files took 3.94 seconds to load)
+[31m201 examples, 46 failures[0m
+
+Failed examples:
+
+[31mrspec ./spec/system/02_after_login_spec.rb:50[0m [36m# [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 表示内容の確認 自分と他人の画像のリンク先が正しい[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:81[0m [36m# [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト サイドバーの確認 bodyフォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:84[0m [36m# [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト サイドバーの確認 bodyフォームに値が入っていない[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:98[0m [36m# [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:101[0m [36m# [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 投稿成功のテスト リダイレクト先が、保存できた投稿の詳細画面になっている[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:126[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 表示内容の確認 投稿のbodyが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:154[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:157[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:171[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:180[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 編集リンクのテスト 編集画面に遷移する[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:218[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 URLが正しい[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:221[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 「Editing Book」と表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:224[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 title編集フォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:227[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 body編集フォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:230[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 Update Bookボタンが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:233[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 Showリンクが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:236[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 表示の確認 Backリンクが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:250[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト titleが正しく更新される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:253[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト bodyが正しく更新される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:256[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト リダイレクト先が、更新した投稿の詳細画面になっている[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:296[0m [36m# [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 titleフォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:299[0m [36m# [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 titleフォームに値が入っていない[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:302[0m [36m# [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 bodyフォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:305[0m [36m# [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 bodyフォームに値が入っていない[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:329[0m [36m# [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト 表示の確認 投稿一覧に自分の投稿のbodyが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:332[0m [36m# [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト 表示の確認 他人の投稿は表示されない[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:350[0m [36m# [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 titleフォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:353[0m [36m# [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 titleフォームに値が入っていない[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:356[0m [36m# [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 bodyフォームが表示される[0m
+[31mrspec ./spec/system/02_after_login_spec.rb:359[0m [36m# [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:47[0m [36m# [STEP3] 仕上げのテスト サクセスメッセージのテスト 投稿データの新規投稿成功時: 投稿一覧画面から行います。[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:58[0m [36m# [STEP3] 仕上げのテスト サクセスメッセージのテスト 投稿データの更新成功時[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:131[0m [36m# [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする 投稿が保存されない[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:134[0m [36m# [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする 投稿一覧画面を表示している[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:140[0m [36m# [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする 新規投稿フォームの内容が正しい[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:144[0m [36m# [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする バリデーションエラーが表示される[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:162[0m [36m# [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの更新失敗: titleを空にする 投稿が更新されない[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:165[0m [36m# [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの更新失敗: titleを空にする 投稿編集画面を表示しており、フォームの内容が正しい[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:170[0m [36m# [STEP3] 仕上げのテスト 処理失敗時のテスト 投稿データの更新失敗: titleを空にする エラーメッセージが表示される[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:231[0m [36m# [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿詳細画面のテスト 表示内容の確認 投稿のopinionが表示される[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:247[0m [36m# [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿詳細画面のテスト サイドバーの確認 他人のユーザ編集画面へのリンクが存在する[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:282[0m [36m# [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 投稿一覧のユーザ画像のリンク先が正しい[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:288[0m [36m# [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 投稿一覧に他人の投稿のopinionが表示される[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:291[0m [36m# [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 自分の投稿は表示されない[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:302[0m [36m# [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト サイドバーの確認 他人のユーザ編集画面へのリンクが存在する[0m
+[31mrspec ./spec/system/03_finishing_touches_spec.rb:375[0m [36m# [STEP3] 仕上げのテスト アイコンのテスト アバウト画面 本のアイコンが表示される[0m
+

@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <p id="notice"></p>
+      <h2>User info</h2>
+      <% if @user.errors.any? %>
+        <%= @user.errors.count %>error prohibited this obj from being saved:
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= form_with model: @user, url: user_path(@user.id), method: :patch, local: true do |f| %>
+        <div class="form-group">
+          <label>Name</label>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <label>Image</label>
+          <%= f.file_field :profile_image, accept: "image/*", class: "form-control-file user_image" %>
+        </div>
+        <div class="form-group">
+          <label>Introduction</label>
+          <%= f.text_area :introduction, class: "form-control" %>
+        </div>
+        <%= f.submit "Update User", class: "btn btn-secondary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="mx-auto">
+        <p>CopyRight Infratop.inc</p>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <script src="https://kit.fontawesome.com/6913a12862.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">Bookers</a>
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                   <%= link_to raw('<i class="fa-solid fa-home"></i> Home'), user_path(current_user), class: 'nav-link text-light' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to raw('<i class="fa-solid fa-users"></i> Users'), users_path, class: 'nav-link text-light' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to raw('<i class="fa-solid fa-book-open"></i> Books'), books_path, class: 'nav-link text-light' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to raw('<i class="fa-solid fa-sign-out-alt"></i> Log out'), destroy_user_session_path, method: :delete, class: 'nav-link text-light', data: { confirm: 'Are you sure?' } %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to raw('<i class="fa-solid fa-home"></i> Home'), root_path, class: "nav-link text-light" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to raw('<i class="fa-solid fa-link"></i> About'), '/home/about', class: "nav-link text-light" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to raw('<i class="fa-solid fa-user-plus"></i> Sign up'), new_user_registration_path, class: "nav-link text-light" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to raw('<i class="fa-solid fa-sign-in-alt"></i> Log in'), new_user_session_path, class: "nav-link text-light" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+    <main class="m">
+      <%= flash[:notice] %>
+      <%= yield %>
+    </main>
+  </body>
+</html>

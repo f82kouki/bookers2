@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <p id="notice"></p>
+      <h2>User info</h2>
+      <% if @user&.profile_image.attached? %>
+        <%= image_tag @user.get_profile_image(100,100) %>
+      <% else %>
+        <%= image_tag 'no-image', size: "100x100" %>
+      <% end %>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>name</th>
+            <td><%= @user&.name %></td>
+          </tr>
+          <tr>
+            <th>introduction</th>
+            <td><%= @user&.introduction %></td>
+          </tr>
+          </tbody>
+      </table>
+      <% if @user == current_user %>
+        <%= link_to edit_user_path(@user.id), class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <p id="notice"></p>
+      <h2>Editing Book</h2>
+  <% if @book.errors.any? %>
+    <%= @book.errors.count %>error prohibited this obj from being saved:
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_with model: @book, url: book_path(@book.id), method: :patch do |f| %>
+    <div>
+      <h4>Title</h4>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <h4>Body</h4>
+      <%= f.text_area :body %>
+    </div>
+    <%= f.submit 'Update Book' %>
+  <% end %>
+  
+  <%= link_to "Show", book_path(@book.id) %> |
+  <%= link_to "Back", books_path %>
+</div> 
+
+<footer>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="mx-auto">
+        <p>CopyRight Infratop.inc</p>
+      </div>
+    </div>
+  </div>
+</footer>
